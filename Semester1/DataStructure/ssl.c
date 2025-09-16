@@ -71,7 +71,7 @@ void search(int key)
         pos++;
         
     }
-    if(found!=0)
+    if(found==0)
     {
         printf("element not found\n");
     }
@@ -104,7 +104,7 @@ int main()
             display();
         break;
         case 4:
-            printf("enter element to search");
+            printf("enter element to search\n");
             while(getchar()!='\n');
             scanf("%d",&key);
             search(key);
