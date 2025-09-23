@@ -1,22 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Define Node structure for doubly linked list
 struct Node {
     int data;
     struct Node* prev;
     struct Node* next;
 };
 
-// Head pointer of the list
 struct Node* head = NULL;
 
-// Function to create a new node with given data
 struct Node* createNode(int value) {
     struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
     if (newNode == NULL) {
         printf("Memory allocation failed\n");
-        exit(1);  // exit since cannot proceed
+        exit(1);
     }
     newNode->data = value;
     newNode->prev = NULL;
@@ -24,7 +21,6 @@ struct Node* createNode(int value) {
     return newNode;
 }
 
-// Insert at the beginning of the list
 void insertAtBeginning(int value) {
     struct Node* newNode = createNode(value);
     if (head == NULL) {
@@ -37,14 +33,12 @@ void insertAtBeginning(int value) {
     printf("%d inserted at the beginning\n", value);
 }
 
-// Insert at the end of the list
 void insertAtEnd(int value) {
     struct Node* newNode = createNode(value);
     if (head == NULL) {
         head = newNode;
     } else {
         struct Node* temp = head;
-        // Move to last node
         while (temp->next != NULL) {
             temp = temp->next;
         }
@@ -54,7 +48,6 @@ void insertAtEnd(int value) {
     printf("%d inserted at the end\n", value);
 }
 
-// Insert at a specific position (1-based position)
 void insertAtPosition(int value, int position) {
     if (position <= 1) {
         insertAtBeginning(value);
@@ -62,16 +55,13 @@ void insertAtPosition(int value, int position) {
     }
     struct Node* temp = head;
     int i = 1;
-    // Move to node at position-1 or until end
     while (temp != NULL && i < position - 1) {
         temp = temp->next;
         i++;
     }
     if (temp == NULL) {
-        // position is beyond length, insert at end
         insertAtEnd(value);
     } else if (temp->next == NULL) {
-        // inserting at end
         insertAtEnd(value);
     } else {
         struct Node* newNode = createNode(value);
@@ -83,7 +73,6 @@ void insertAtPosition(int value, int position) {
     }
 }
 
-// Delete from the beginning
 void deleteFromBeginning() {
     if (head == NULL) {
         printf("List is empty, cannot delete from beginning\n");
@@ -99,14 +88,12 @@ void deleteFromBeginning() {
     printf("%d deleted from beginning\n", val);
 }
 
-// Delete from the end
 void deleteFromEnd() {
     if (head == NULL) {
         printf("List is empty, cannot delete from end\n");
         return;
     }
     struct Node* temp = head;
-    // Move to last
     while (temp->next != NULL) {
         temp = temp->next;
     }
@@ -114,21 +101,18 @@ void deleteFromEnd() {
     if (temp->prev != NULL) {
         temp->prev->next = NULL;
     } else {
-        // it was the only node
         head = NULL;
     }
     free(temp);
     printf("%d deleted from end\n", val);
 }
 
-// Delete a node by key (first occurrence)
 void deleteByKey(int key) {
     if (head == NULL) {
         printf("List is empty, cannot delete key %d\n", key);
         return;
     }
     struct Node* temp = head;
-    // search for the node with given key
     while (temp != NULL && temp->data != key) {
         temp = temp->next;
     }
@@ -136,7 +120,6 @@ void deleteByKey(int key) {
         printf("Key %d not found in list\n", key);
         return;
     }
-    // If node to delete is head
     if (temp->prev == NULL) {
         head = temp->next;
         if (head != NULL) {
@@ -152,7 +135,6 @@ void deleteByKey(int key) {
     free(temp);
 }
 
-// Traverse the list forward
 void traverseForward() {
     if (head == NULL) {
         printf("List is empty\n");
@@ -167,14 +149,12 @@ void traverseForward() {
     printf("NULL\n");
 }
 
-// Traverse the list backward
 void traverseBackward() {
     if (head == NULL) {
         printf("List is empty\n");
         return;
     }
     struct Node* temp = head;
-    // Move to last node
     while (temp->next != NULL) {
         temp = temp->next;
     }
@@ -186,7 +166,6 @@ void traverseBackward() {
     printf("NULL\n");
 }
 
-// Search for an element and report its first position
 void search(int key) {
     if (head == NULL) {
         printf("List is empty\n");
@@ -205,10 +184,8 @@ void search(int key) {
     printf("Element %d not found\n", key);
 }
 
-// Main menu
 int main() {
     int choice, value, position, key;
-
     do {
         printf("\n--- Doubly Linked List Operations ---\n");
         printf("1. Insert at Beginning\n");
@@ -223,7 +200,6 @@ int main() {
         printf("10. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-
         switch (choice) {
             case 1:
                 printf("Enter value to insert at beginning: ");
@@ -269,6 +245,5 @@ int main() {
                 printf("Invalid choice, try again.\n");
         }
     } while (choice != 10);
-
     return 0;
 }
