@@ -31,6 +31,22 @@ void inorder(struct Node* root) {
     }
 }
 
+void preorder(struct Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+void postorder(struct Node* root) {
+    if (root != NULL) {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d ", root->data);
+    }
+}
+
 struct Node* search(struct Node* root, int key) {
     if (root == NULL || root->data == key)
         return root;
@@ -71,18 +87,22 @@ int main() {
     struct Node* root = NULL;
     int choice, val;
     do {
-        printf("\n1.Insert\n2.Display(Inorder)\n3.Search\n4.Delete\n5.Exit\nEnter choice: ");
+        printf("\n---- Binary Search Tree Menu ----\n");
+        printf("1. Insert\n2. Delete\n3. Search\n");
+        printf("4. Inorder\n5. Preorder\n6. Postorder\n7. Exit\n");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
         switch (choice) {
             case 1:
-                printf("Enter value: ");
+                printf("Enter value to insert: ");
                 scanf("%d", &val);
                 root = insert(root, val);
                 break;
             case 2:
-                printf("BST elements (Inorder): ");
-                inorder(root);
-                printf("\n");
+                printf("Enter value to delete: ");
+                scanf("%d", &val);
+                root = deleteNode(root, val);
+                printf("Node deleted if it existed.\n");
                 break;
             case 3:
                 printf("Enter value to search: ");
@@ -93,16 +113,26 @@ int main() {
                     printf("%d not found\n", val);
                 break;
             case 4:
-                printf("Enter value to delete: ");
-                scanf("%d", &val);
-                root = deleteNode(root, val);
+                printf("Inorder Traversal: ");
+                inorder(root);
+                printf("\n");
                 break;
             case 5:
-                printf("Exiting...\n");
+                printf("Preorder Traversal: ");
+                preorder(root);
+                printf("\n");
+                break;
+            case 6:
+                printf("Postorder Traversal: ");
+                postorder(root);
+                printf("\n");
+                break;
+            case 7:
+                printf("Exiting program...\n");
                 break;
             default:
-                printf("Invalid choice\n");
+                printf("Invalid choice! Try again.\n");
         }
-    } while (choice != 5);
+    } while (choice != 7);
     return 0;
 }
