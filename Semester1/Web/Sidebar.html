@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Navigation Example</title>
+    <style>
+        /* Sidebar container */
+        .sidenav {
+            height: 100%;
+            width: 160px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: green;
+            padding-top: 20px;
+        }
+
+        /* Links inside sidebar */
+        .sidenav a {
+            display: block;
+            text-decoration: none;
+            padding: 6px 8px 6px 16px;
+            color: white;
+        }
+
+        /* Hover effect on links */
+        .sidenav a:hover {
+            color: red;
+        }
+
+        /* Main content area */
+        .main {
+            margin-left: 160px;
+            padding: 0px 10px;
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidenav">
+        <a href="#">About us</a>
+        <a href="#">Departments</a>
+        <a href="#">Vision and Mission</a>
+        <a href="#">Contact us</a>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+        <h1>Side Bar Example</h1>
+        <p>This is the main content area. Scroll down to see the sidebar stays in place.</p>
+    </div>
+
+</body>
+</html>
