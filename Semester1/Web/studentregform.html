@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+    td, th {
+      border: 1px solid black;
+      padding: 10px;
+    }
+    input[type="text"], input[type="tel"], input[type="date"], input[type="password"] {
+      width: 90%;
+      padding: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Student Registration Form</h1>
+
+  <form id="studentForm" onsubmit="return validateForm()">
+    <table>
+      <tr>
+        <td><label for="firstName">First Name:</label></td>
+        <td><input type="text" id="firstName" maxlength="30" placeholder="Maximum 30 characters" /></td>
+      </tr>
+      <tr>
+        <td><label for="dob">Date of Birth:</label></td>
+        <td><input type="date" id="dob" /></td>
+      </tr>
+      <tr>
+        <td><label for="mobile">Mobile Number:</label></td>
+        <td><input type="tel" id="mobile" maxlength="10" placeholder="10 digits only" /></td>
+      </tr>
+      <tr>
+        <td>Courses Applied:</td>
+        <td>
+          <label><input type="radio" name="course" value="MCA" /> MCA</label>
+          <label><input type="radio" name="course" value="Mtech" /> Mtech</label>
+          <label><input type="radio" name="course" value="Msc" /> Msc</label>
+          <label><input type="radio" name="course" value="MBA" /> MBA</label>
+        </td>
+      </tr>
+    </table>
+
+    <div>
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+    </div>
+  </form>
+
+  <script>
+    function validateForm() {
+      const firstName = document.getElementById("firstName").value.trim();
+      if (firstName === "") {
+        alert("Please enter your First Name.");
+        return false;
+      }
+
+      const dob = document.getElementById("dob").value;
+      if (dob === "") {
+        alert("Please select your Date of Birth.");
+        return false;
+      }
+
+      const mobile = document.getElementById("mobile").value.trim();
+      const mobilePattern = /^[0-9]{10}$/;
+      if (!mobilePattern.test(mobile)) {
+        alert("Mobile number must be exactly 10 digits.");
+        return false;
+      }
+
+      const courses = document.getElementsByName("course");
+      let courseSelected = false;
+      for (const course of courses) {
+        if (course.checked) {
+          courseSelected = true;
+          break;
+        }
+      }
+      if (!courseSelected) {
+        alert("Please select at least one course.");
+        return false;
+      }
+
+      alert("Form submitted successfully!");
+      return true;
+    }
+  </script>
+</body>
+</html>

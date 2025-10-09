@@ -1,0 +1,25 @@
+p {
+    color: blue;
+    background-color: lightyellow;
+    font-size: 32px;
+  }
+  
+  .classPara {
+    color: white;
+    background-color: green;
+  }
+  
+  #idPara {
+    color: black;
+    background-color: pink;
+  }
+  
+  .group1, .group2 {
+    color: brown;
+    background-color: lightblue;
+  }
+  
+  * {
+    font-family: Arial;
+    background-color: #f0f0f0;
+  }

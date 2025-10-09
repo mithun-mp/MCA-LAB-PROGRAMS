@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Background Color</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 100px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="colorButton">Change Background Colour</button>
+
+    <script>
+        const button = document.getElementById('colorButton');
+
+        button.addEventListener('click', function() {
+            document.body.style.backgroundColor = 'red';
+        });
+
+        button.addEventListener('dblclick', function() {
+            document.body.style.backgroundColor = 'green';
+        });
+    </script>
+
+</body>
+</html>

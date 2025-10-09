@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Striped Table using CSS</title>
+  <style>
+    #studentTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: sans-serif;
+}
+
+#studentTable th {
+  padding: 20px 0;
+  text-align: left;
+  color: white;
+  background-color: #b22222;
+  border: 1px solid grey;
+}
+
+#studentTable td {
+  padding: 8px;
+  border: 1px solid grey;
+}
+
+#studentTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#studentTable tr:hover {
+  background-color: burlywood;
+}
+  </style>
+</head>
+<body>
+
+  <h2>Student Details Table</h2>
+
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>SL.NO</th>
+        <th>Admission No</th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>101</td>
+        <td>Ac2013</td>
+        <td>Mithun</td>
+        
+        <td>mail@gmail.com</td>
+      </tr>
+      <tr>
+        <td>102</td>
+        <td>Ac2014</td>
+        <td>Gloria</td>
+        
+        <td>mail@gmail.com</td>
+      </tr>
+      <tr>
+        <td>103</td>
+        <td>Ac2013</td>
+        <td>Rahul</td>
+        
+        <td>mail@gmail.com</td>
+      </tr>
+      <tr>
+        <td>104</td>
+        <td>Ac2013</td>
+        <td>Arun</td>
+        
+        <td>mail@gmail.com</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

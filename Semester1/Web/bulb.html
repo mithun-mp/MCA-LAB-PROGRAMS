@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Bulb </title>
+    <style>
+        img{
+            align-self: center;
+
+        }
+    </style>
+</head>
+<body>
+
+    <center>
+    <button onclick="turnOn()">Turn On the light</button>
+    <img id="bulb" src="file_0000000090a862309d24749f73dc89a4.png" alt="Light Bulb" width="500px"length="750px">
+    <button onclick="turnOff()">Turn Off the light</button>
+    </center>
+    
+
+    <script>
+        const bulb = document.getElementById('bulb');
+
+        function turnOn() {
+            bulb.src = 'file_00000000b95c61f692c8830fcd7a1d76.png';
+        }
+
+        function turnOff() {
+            bulb.src = 'file_0000000090a862309d24749f73dc89a4.png';
+        }
+    </script>
+
+</body>
+</html>
