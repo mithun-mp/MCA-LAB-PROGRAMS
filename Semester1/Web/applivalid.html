@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Registration form</title>
+  <style>
+    form {
+      padding: 100px;
+    }
+    table, td, tr, th {
+      border: 1px solid black;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <section style="justify-items: center;">
+    <h1>Student Registration Form</h1>
+    <form id="studentForm" onsubmit="return validateForm()" class="form">
+      <table>
+        <tr>
+          <td><label for="firstName" class="element">FIRST NAME:</label></td>
+          <td><input type="text" id="firstName" name="firstName" maxlength="30" placeholder="Maximum 30 characters" /></td>
+        </tr>
+        <tr>
+          <td><label for="lastName" class="element">LAST NAME:</label></td>
+          <td><input type="text" id="lastName" name="lastName" maxlength="30" placeholder="Maximum 30 characters" /></td>
+        </tr>
+        <tr>
+          <td><label for="dob">Date of Birth:</label></td>
+          <td><input type="date" id="dob" name="dob" /></td>
+        </tr>
+        <tr>
+          <td><label for="email">Email Address:</label></td>
+          <td><input type="email" id="email" name="email" /></td>
+        </tr>
+        <tr>
+          <td><label for="mobile">Mobile Number:</label></td>
+          <td><input type="tel" id="mobile" name="mobile" placeholder="10 digits only" maxlength="10" /></td>
+        </tr>
+        <tr>
+          <td><label for="gender">Gender:</label></td>
+          <td>
+            <label for="male">Male</label><input type="radio" id="male" name="gender" value="Male" />
+            <label for="female">Female</label><input type="radio" id="female" name="gender" value="Female" />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="city">City:</label></td>
+          <td><input type="text" id="city" name="city" maxlength="30" placeholder="Maximum 30 characters" /></td>
+        </tr>
+        <tr>
+          <td><label for="state">State:</label></td>
+          <td><input type="text" id="state" name="state" maxlength="30" placeholder="Maximum 30 characters" /></td>
+        </tr>
+        <tr>
+          <td><label for="pincode">Pincode:</label></td>
+          <td><input type="number" id="pincode" name="pincode" placeholder="Maximum 10 digits" /></td>
+        </tr>
+        <tr>
+          <td><label for="country">Country:</label></td>
+          <td><input type="text" id="country" name="country" placeholder="India" /></td>
+        </tr>
+        <tr>
+          <td><label for="hobbies">Hobbies:</label></td>
+          <td>
+            <label for="drawing">Drawing</label><input type="checkbox" id="drawing" name="hobbies" value="Drawing" />
+            <label for="singing">Singing</label><input type="checkbox" id="singing" name="hobbies" value="Singing" />
+            <label for="dancing">Dancing</label><input type="checkbox" id="dancing" name="hobbies" value="Dancing" />
+            <br />
+            <label for="others">Others</label><input type="text" id="others" name="others" />
+          </td>
+        </tr>
+        
+        <tr>
+          <td>Courses Applied:</td>
+          <td>
+            <label for="mca">MCA</label><input type="radio" id="mca" name="course" value="MCA" />
+            <label for="mtech">Mtech</label><input type="radio" id="mtech" name="course" value="Mtech" />
+            <label for="msc">Msc</label><input type="radio" id="msc" name="course" value="Msc" />
+            <label for="mba">MBA</label><input type="radio" id="mba" name="course" value="MBA" />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="password">Password:</label></td>
+          <td><input type="password" id="password" name="password" maxlength="30" placeholder="Maximum 30 characters" /></td>
+        </tr>
+        <tr>
+          <td><label for="photo">Upload your photo:</label></td>
+          <td><input type="file" id="photo" name="photo" /></td>
+        </tr>
+        <tr>
+          <td><label for="dateTC">Date of TC:</label></td>
+          <td><input type="date" id="dateTC" name="dateTC" /></td>
+        </tr>
+      </table>
+
+      <div style="text-align: center; margin: 10px;">
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    function validateForm() {
+      
+      const firstName = document.getElementById("firstName").value.trim();
+      if (firstName === "") {
+        alert("First Name cannot be blank.");
+        return false;
+      }
+
+     
+      const dob = document.getElementById("dob").value;
+      if (dob === "") {
+        alert("Please select your Date of Birth.");
+        return false;
+      }
+
+    
+      const mobile = document.getElementById("mobile").value.trim();
+      const mobileRegex = /^[0-9]{10}$/;
+      if (!mobileRegex.test(mobile)) {
+        alert("Mobile number must be exactly 10 digits.");
+        return false;
+      }
+
+      
+      const courses = document.getElementsByName("course");
+      let courseSelected = false;
+      for (let i = 0; i < courses.length; i++) {
+        if (courses[i].checked) {
+          courseSelected = true;
+          break;
+        }
+      }
+      if (!courseSelected) {
+        alert("Please select at least one course.");
+        return false;
+      }
+
+     
+      return true;
+    }
+  </script>
+</body>
+</html>
