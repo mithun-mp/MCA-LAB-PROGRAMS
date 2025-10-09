@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Bulb Toggle</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+
+        img {
+            width: 150px;
+            height: 250px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Light Bulb Control</h1>
+    <img id="bulb" src="https://i.postimg.cc/3x3QzSGq/bulb-off.png" alt="Light Bulb">
+
+    <div>
+        <button onclick="turnOn()">Turn On</button>
+        <button onclick="turnOff()">Turn Off</button>
+    </div>
+
+    <script>
+        const bulb = document.getElementById('bulb');
+
+        function turnOn() {
+            bulb.src = 'https://i.postimg.cc/fyCq3HJ1/bulb-on.png';
+        }
+
+        function turnOff() {
+            bulb.src = 'https://i.postimg.cc/3x3QzSGq/bulb-off.png';
+        }
+    </script>
+
+</body>
+</html>
