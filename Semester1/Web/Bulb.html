@@ -3,51 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Light Bulb Toggle</title>
+    <title>Light Bulb </title>
     <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-            margin-top: 50px;
-        }
+        img{
+            align-self: center;
 
-        img {
-            width: 150px;
-            height: 250px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: lightgray;
         }
     </style>
 </head>
 <body>
 
-    <h1>Light Bulb Control</h1>
-    <img id="bulb" src="https://i.postimg.cc/3x3QzSGq/bulb-off.png" alt="Light Bulb">
-
-    <div>
-        <button onclick="turnOn()">Turn On</button>
-        <button onclick="turnOff()">Turn Off</button>
-    </div>
+    <center>
+    <button onclick="turnOn()">Turn On the light</button>
+    <img id="bulb" src="file_0000000090a862309d24749f73dc89a4.png" alt="Light Bulb" width="500px"length="750px">
+    <button onclick="turnOff()">Turn Off the light</button>
+    </center>
+    
 
     <script>
         const bulb = document.getElementById('bulb');
 
         function turnOn() {
-            bulb.src = 'https://i.postimg.cc/fyCq3HJ1/bulb-on.png';
+            bulb.src = 'file_00000000b95c61f692c8830fcd7a1d76.png';
         }
 
         function turnOff() {
-            bulb.src = 'https://i.postimg.cc/3x3QzSGq/bulb-off.png';
+            bulb.src = 'file_0000000090a862309d24749f73dc89a4.png';
         }
     </script>
 
