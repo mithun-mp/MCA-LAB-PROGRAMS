@@ -3,34 +3,24 @@
 
 int parent[MAX];
 
-void makeSet(int n) {
+void create(int n) {
     for(int i = 1; i <= n; i++) {
         parent[i] = i;
     }
 }
 
 int find(int x) {
-    if(parent[x] == x) {
+    if(parent[x] == x)
         return x;
-    } else {
-        parent[x] = find(parent[x]);
-        return parent[x];
-    }
+    parent[x] = find(parent[x]);
+    return parent[x];
 }
 
 void unionSets(int a, int b) {
     int rootA = find(a);
     int rootB = find(b);
-    if(rootA != rootB) {
+    if(rootA != rootB)
         parent[rootB] = rootA;
-    }
-}
-
-void display(int n) {
-    printf("Element : Parent\n");
-    for(int i = 1; i <= n; i++) {
-        printf("%d : %d\n", i, find(i));
-    }
 }
 
 int main() {
@@ -38,10 +28,10 @@ int main() {
 
     printf("Enter number of elements: ");
     scanf("%d", &n);
-    makeSet(n);
+    create(n);
 
     while(1) {
-        printf("\n1. Union\n2. Find\n3. Display sets\n4. Exit\nChoose operation: ");
+        printf("\n1. Union\n2. Find\n3. Exit\nChoose operation: ");
         scanf("%d", &choice);
 
         if(choice == 1) {
@@ -56,9 +46,6 @@ int main() {
             printf("Representative of %d is %d\n", u, find(u));
         }
         else if(choice == 3) {
-            display(n);
-        }
-        else if(choice == 4) {
             break;
         }
         else {
