@@ -21,7 +21,6 @@ int find(int x) {
 void unionSets(int a, int b) {
     int rootA = find(a);
     int rootB = find(b);
-
     if(rootA != rootB) {
         parent[rootB] = rootA;
     }
@@ -36,26 +35,34 @@ void display(int n) {
 
 int main() {
     int n, u, v, choice;
-    scanf("%d", &n);
 
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
     makeSet(n);
 
     while(1) {
+        printf("\n1. Union\n2. Find\n3. Display sets\n4. Exit\nChoose operation: ");
         scanf("%d", &choice);
 
         if(choice == 1) {
+            printf("Enter two elements to union: ");
             scanf("%d %d", &u, &v);
             unionSets(u, v);
+            printf("Union done.\n");
         }
         else if(choice == 2) {
+            printf("Enter element to find its set: ");
             scanf("%d", &u);
-            printf("%d\n", find(u));
+            printf("Representative of %d is %d\n", u, find(u));
         }
         else if(choice == 3) {
             display(n);
         }
         else if(choice == 4) {
             break;
+        }
+        else {
+            printf("Invalid choice.\n");
         }
     }
 
