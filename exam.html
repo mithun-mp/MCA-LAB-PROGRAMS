@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="qform"></form>
+    <h2>what does html stands for?</h2>
+    <label><input type="radio" name="q1" value="1">hyper text markup language</label><br>
+    <label><input type="radio" name="q1" value="0">hyper text marking language</label><br>
+    <label><input type="radio" name="q1" value="0">hyper text manipulation language</label><br>
+    <h2>what does css stands for?</h2>
+    <label><input type="radio" name="q2" value="0">character style sheet</label><br>
+    <label><input type="radio" name="q2" value="1">cascade style sheet</label><br>
+    <label><input type="radio" name="q2" value="0">cascase structure style</label><br>
+    <h2>what does js stands for?</h2>
+    <label><input type="radio" name="q3" value="0">java style</label><br>
+    <label><input type="radio" name="q3" value="0">java sheet</label><br>
+    <label><input type="radio" name="q3" value="1">java script</label><br>
+    <input type="button" value="submit" name="submit" onclick="cal()">
+</form>
+<p id="result"></p>
+    <script>
+        function cal(){
+            let score=0;
+            let form=document.getElementById('qform');
+            let answers=form.querySelectorAll('input[type="radio"]:checked');
+            answers.forEach(ans=>{
+                score=score+parseInt(ans.value);
+            });
+            document.getElementById('result').innerHTML="your score is"+score+"/3";
+        }
+    </script>
+</body>
+</html>
