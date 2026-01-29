@@ -1,0 +1,162 @@
+-- ===============================
+-- SQL LAB EXPERIMENT RESULTS
+-- Database: MariaDB / MySQL
+-- Tables: departments, employee
+-- ===============================
+
+
+-- -------------------------------
+-- PART 1: INSERT OPERATIONS
+-- -------------------------------
+
+-- 2. Insert a new employee Alice Johnson with ID 101
+INSERT INTO employee (empid, firstname, lastname, jobtitle, salary, dept_id)
+VALUES (101, 'Alice', 'Johnson', 'Analyst', 65000, 7);
+
+-- 3. Insert employee into Sales department without HireDate
+INSERT INTO employee (firstname, lastname, dept_id, salary, jobtitle)
+VALUES ('Bob', 'Martin',
+       (SELECT dept_id FROM departments WHERE dept_name='Sales'),
+       55000, 'Sales Executive');
+
+-- 4. Insert record with Salary = 5000 * 12
+INSERT INTO employee (firstname, lastname, dept_id, salary, jobtitle)
+VALUES ('Chris', 'Brown', 8, 5000 * 12, 'Consultant');
+
+-- 5. Bulk insert three trainees in one query
+INSERT INTO employee (firstname, lastname, dept_id, salary, jobtitle)
+VALUES
+('Trainee1', 'A', 7, 20000, 'Trainee'),
+('Trainee2', 'B', 8, 22000, 'Trainee'),
+('Trainee3', 'C', 9, 21000, 'Trainee');
+
+-- 6. Insert only EmpID, LastName and Salary
+INSERT INTO employee (empid, lastname, salary)
+VALUES (105, 'Williams', 40000);
+
+-- 7. Create backup table and copy records
+CREATE TABLE Emp_Backup AS
+SELECT * FROM employee;
+
+-- 8. Insert using subquery for Marketing DeptID
+INSERT INTO employee (firstname, lastname, dept_id, salary, jobtitle)
+VALUES ('David', 'Scott',
+       (SELECT dept_id FROM departments WHERE dept_name='Marketing'),
+       60000, 'Manager');
+
+-- 9. Attempt duplicate EmpID (should fail)
+INSERT INTO employee (empid, firstname, lastname, dept_id)
+VALUES (101, 'Duplicate', 'User', 7);
+
+-- 10. Insert employee with HireDate as current date
+INSERT INTO employee (firstname, lastname, dept_id, salary, hiredate, jobtitle)
+VALUES ('Emma', 'Watson', 9, 72000, CURDATE(), 'Lead');
+
+
+-- -------------------------------
+-- PART 2: UPDATE OPERATIONS
+-- -------------------------------
+
+-- 1. Give Engineering employees 10% salary increase
+UPDATE employee
+SET salary = salary * 1.10
+WHERE dept_id = (SELECT dept_id FROM departments WHERE dept_name='Engineering');
+
+-- 2. Change JobTitle of employee 101
+UPDATE employee
+SET jobtitle = 'Senior Analyst'
+WHERE empid = 101;
+
+-- 3. Update HR location to New York
+UPDATE departments
+SET location = 'New York'
+WHERE dept_name = 'HR';
+
+-- 4. Set NULL salary to minimum 30000
+UPDATE employee
+SET salary = 30000
+WHERE salary IS NULL;
+
+-- 5. Update lastname of employee 105
+UPDATE employee
+SET lastname = 'Smith-West'
+WHERE empid = 105;
+
+-- 6. Increase bottom 5% earners salary by 5000
+UPDATE employee
+SET salary = salary + 5000
+WHERE salary <= (
+    SELECT MIN(salary) FROM (
+        SELECT salary
+        FROM employee
+        ORDER BY salary
+        LIMIT 1
+    ) AS t
+);
+
+-- 7. Change DeptID of Managers to Operations department
+UPDATE employee
+SET dept_id = (SELECT dept_id FROM departments WHERE dept_name='Operations')
+WHERE jobtitle LIKE '%Manager%';
+
+-- 8. Update Salary and JobTitle together
+UPDATE employee
+SET salary = 90000,
+    jobtitle = 'Tech Lead'
+WHERE empid = 110;
+
+-- 9. Prefix JobTitle with 'Global' for Sales employees
+UPDATE employee
+SET jobtitle = CONCAT('Global ', jobtitle)
+WHERE dept_id = (SELECT dept_id FROM departments WHERE dept_name='Sales');
+
+-- 10. Match salary to department average
+UPDATE employee e
+SET salary = (
+    SELECT AVG(salary)
+    FROM employee
+    WHERE dept_id = e.dept_id
+);
+
+
+-- -------------------------------
+-- PART 3: DELETE OPERATIONS
+-- -------------------------------
+
+-- 1. Delete employee with EmpID 101
+DELETE FROM employee WHERE empid = 101;
+
+-- 2. Delete employees hired before 2010-01-01
+DELETE FROM employee WHERE hiredate < '2010-01-01';
+
+-- 3. Delete departments in Chicago
+DELETE FROM departments WHERE location = 'Chicago';
+
+-- 4. Delete employees with NULL DeptID
+DELETE FROM employee WHERE dept_id IS NULL;
+
+-- 5. Delete Interns who completed contract
+DELETE FROM employee WHERE jobtitle = 'Intern';
+
+-- 6. Attempt deleting Marketing department (may fail due to FK)
+DELETE FROM departments WHERE dept_name = 'Marketing';
+
+-- 7. Delete employees with salary < 25000
+DELETE FROM employee WHERE salary < 25000;
+
+-- 8. Delete employees working in Sales (using subquery)
+DELETE FROM employee
+WHERE dept_id = (
+    SELECT dept_id FROM departments WHERE dept_name='Sales'
+);
+
+-- 9. Clear all records from Emp_Backup without dropping table
+TRUNCATE TABLE Emp_Backup;
+
+-- 10. Delete highest-paid employee
+DELETE FROM employee
+WHERE salary = (SELECT MAX(salary) FROM employee);
+
+-- ===============================
+-- END OF EXPERIMENT FILE
+-- ===============================

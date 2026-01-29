@@ -1,0 +1,8 @@
+INSERT INTO departments (dept_id, dept_name, location)
+VALUES
+    (7,  'Engineering', 'San Francisco'),
+    (8,  'HR',          'Chicago'),
+    (9,  'Sales',       'London'),
+    (10, 'Marketing',   'Austin'),
+    (11, 'Operations',  'Boston'),
+    (12, 'Research',    'Boston');
