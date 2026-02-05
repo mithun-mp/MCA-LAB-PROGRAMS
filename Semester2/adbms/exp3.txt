@@ -1,0 +1,173 @@
+
+Experiment 3 DML - Select statements
+Use the attached sql file to create Customers and Products tables
+and populate with sample data. Understand these table and develop sql
+queries for the following questions.
+
+1. Select all data from customers table
+2. Display only first name and last name of all Customers
+3. Find the first three rows from products table.
+4. Select Name and Category from Products table. Display them as "Item Name" and "Item Category"
+5. Find all customers living in 'Kochi'.
+6. Select all customers who joined before '2023-01-01'
+7. Show products that do not belong to 'Electronics' category.
+8. Find products in 'Electronics' with a price under 30,000.
+9. Find customers living in either 'Kochi' or 'Thrissur'.
+10. List customers whose LastName ends with 'ai'.
+11. List customers whose FirstName is exactly 5 characters long.
+12. Find products where the Category has 'u' as the second letter.
+13. List all products sorted by price from cheapest to most expensive.
+14. Display the name of the most expensive product;
+15. Display all customers who have some points.
+16. Count the total number of customers.
+17. Find the average price of all products.
+18. Count how many products are in the 'Furniture' category.
+19. Count the number of customers in each city.
+20. Show categories where the maximum product price is above 20,000.
+21. Show Name and total value of stock (Price * StockQuantity) for each product.
+22. List products with a Price between 2000 and 10,000.
+23. Select products where the Price is exactly 1500, 2200, or 4500.(Use IN)
+24. Find customers whose Points are not between 500 and 1000.
+25. List all products except those in the 'Accessories' or 'Stationery' categories.
+26. Count products in each category where stock is greater than 0.
+27. List cities that have more than 1 customer (using HAVING).
+28. List products whose name is not 'Laptop' and price is not 25,000.
+29. Concatenate FirstName and LastName to show as FullName.
+30. List all customers who do not have 1500 points. (Including NULL)
+-- Create Customers Table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    City VARCHAR(50),
+    Points INT,
+    JoinDate DATE
+);
+
+-- Create Products Table
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Category VARCHAR(50),
+    Price DECIMAL(10, 2),
+    StockQuantity INT
+);
+
+-- Populate Customers
+INSERT INTO Customers (CustomerID, FirstName, LastName, City, Points, JoinDate) VALUES
+(1, 'Rahul', 'Nair', 'Kochi', 1500, '2023-01-15'),
+(2, 'Anjali', 'Das', 'Thrissur', 850, '2023-03-20'),
+(3, 'Vijay', 'Kumar', 'Palakkad', 2100, '2022-11-10'),
+(4, 'Meera', 'Pillai', 'Kochi', NULL, '2024-01-05'),
+(5, 'Arjun', 'Varma', 'Trivandrum', 1200, NULL);
+
+-- Populate Products
+INSERT INTO Products (ProductID, Name, Category, Price, StockQuantity) VALUES
+(101, 'Laptop', 'Electronics', 55000.00, 10),
+(102, 'Smartphone', 'Electronics', 25000.00, 25),
+(103, 'Office Chair', 'Furniture', 4500.00, 15),
+(104, 'Desk Lamp', 'Furniture', 1200.00, 50),
+(105, 'Headphones', 'Accessories', 1500.00, 0),
+(106, 'Backpack', 'Accessories', 2200.00, 30),
+(107, 'Smart Case', 'Accessories', 800.00, 100);
+
+
+
+1-
+select* from Customers;
+
+2-
+SELECT FirstName, LastName FROM Customers;
+
+3-
+SELECT * FROM Products LIMIT 3;
+
+4-
+SELECT Name AS "Item Name", Category AS "Item Category" FROM Products;
+
+5-
+SELECT * FROM Customers WHERE City = 'Kochi';
+
+6-
+SELECT * FROM Customers WHERE JoinDate < '2023-01-01';
+
+7-
+SELECT * FROM Products WHERE Category <> 'Electronics';
+
+8-
+SELECT * FROM Products WHERE Category = 'Electronics' AND Price < 30000;
+
+9-
+SELECT * FROM Customers WHERE City IN ('Kochi', 'Thrissur');
+
+10-
+SELECT * FROM Customers WHERE LastNaSELECT * FROM Customers
+WHERE Points IS NULL OR Points <> 1500;
+me LIKE '%ai';
+
+11-
+SELECT * FROM Customers WHERE LENGTHSELECT * FROM Customers
+WHERE Points IS NULL OR Points <> 1500;
+(FirstName) = 5;
+
+12-
+SELECT * FROM Products WHERE Category LIKE '_u%';
+
+13-
+SELECT * FROM Products ORDER BY Price ASC;
+
+14-
+SELECT Name FROM Products ORDER BY Price DESC LIMIT 1;
+
+15-
+SELECT * FROM Customers WHERE Points IS NOT NULL;
+
+16-
+SELECT COUNT(*) AS TotalCustomers FROM Customers;
+
+17-
+SELECT AVG(Price) AS AvgPrice FROM Products;
+
+18-
+SELECT COUNT(*) AS FurnitureCount FROM Products WHERE Category = 'Furniture';
+
+19-
+SELECT City, COUNT(*) AS CustomerCount FROM Customers GROUP BY City;
+
+20-
+SELECT Category FROM Products GROUP BY Category HAVING MAX(Price) > 20000;
+
+21-
+SELECT Name, (Price * StockQuantity) AS TotalStockValue FROM Products;
+
+22-
+SELECT * FROM Products WHERE Price BETWEEN 2000 AND 10000;
+
+23-
+SELECT * FROM Products WHERE Price IN (1500, 2200, 4500);
+
+24-
+SELECT * FROM Customers WHERE Points NOT BETWEEN 500 AND 1000;
+
+25-
+SELECT * FROM Products WHERE Category NOT IN ('Accessories', 'Stationery');
+
+26-
+SELECT Category, COUNT(*) AS ProductCount FROM Products WHERE StockQuantity > 0 GROUP BY Category;
+
+27-
+SELECT City, COUNT(*) AS CustomerCount FROM Customers GROUP BY City HAVING COUNT(*) > 1;
+
+28-
+SELECT * FROM Products WHERE Name <> 'Laptop' AND Price <> 25000;
+
+29-
+SELECT CONCAT(FirstName, ' ', LastName) AS FullName FROM Customers;
+
+30-
+SELECT * FROM Customers WHERE Points IS NULL OR Points <> 1500;
+
+
+
+
+
