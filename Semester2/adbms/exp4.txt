@@ -1,0 +1,115 @@
+-- 1️⃣ Drop all existing conflicting tables
+DROP TABLE IF EXISTS Orders;
+DROP TABLE IF EXISTS Vendors;
+DROP TABLE IF EXISTS vendors;
+DROP TABLE IF EXISTS Districts;
+DROP TABLE IF EXISTS districts;
+-- 2️⃣ Recreate tables cleanly with consistent names (use PascalCase or lowercase consistently)
+CREATE TABLE Districts (
+    district_id INT PRIMARY KEY,
+    district_name VARCHAR(50),
+    region VARCHAR(20)  -- North, Central, South
+);
+
+CREATE TABLE Vendors (
+    vendor_id INT PRIMARY KEY,
+    vendor_name VARCHAR(100),
+    district_id INT,
+    category VARCHAR(50),  -- Spices, Chips, Seafood, Vegetables
+    FOREIGN KEY (district_id) REFERENCES Districts(district_id)
+);
+
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    vendor_id INT,
+    customer_name VARCHAR(100),
+    amount DECIMAL(10,2),
+    order_date DATE,
+    referrer_order_id INT, -- self reference for referrals
+    FOREIGN KEY (vendor_id) REFERENCES Vendors(vendor_id),
+    FOREIGN KEY (referrer_order_id) REFERENCES Orders(order_id)
+);
+
+--1)
+SELECT v.vendor_name, d.district_name FROM Vendors v JOIN Districts d ON v.district_id = d.district_id;
+
+--2)
+SELECT d.district_name, v.vendor_name FROM Districts d LEFT JOIN Vendors v ON d.district_id = v.district_id ORDER BY d.district_name, v.vendor_name;
+
+--3)SELECT o.order_id, o.customer_name, o.amount, v.vendor_name, d.district_name FROM Orders o JOIN Vendors v ON o.vendor_id = v.vendor_id JOIN Districts d ON v.district_id = d.district_id ORDER BY o.order_id;
+
+--4)SELECT d.district_name,COUNT(o.order_id) AS total_orders FROM Districts d LEFT JOIN Vendors v ON d.district_id = v.district_id LEFT JOIN Orders o ON v.vendor_id = o.vendor_id GROUP BY d.district_id, d.district_name ORDER BY d.district_name;
+
+--5)SELECT order_id, referrer_order_id FROM Orders ORDER BY order_id;
+
+--6)SELECT v1.vendor_id AS vendor1_id, v1.vendor_name AS vendor1,
+       v2.vendor_id AS vendor2_id, v2.vendor_name AS vendor2,
+       d.district_name
+FROM Vendors v1
+JOIN Vendors v2
+  ON v1.district_id = v2.district_id
+  AND v1.vendor_id < v2.vendor_id  
+JOIN Districts d ON v1.district_id = d.district_id
+ORDER BY d.district_name, v1.vendor_name, v2.vendor_name;
+
+
+--7)
+SELECT COALESCE(SUM(o.amount), 0) AS total_revenue FROM Orders o JOIN Vendors v ON o.vendor_id = v.vendor_id JOIN Districts d ON v.district_id = d.district_id WHERE d.region = 'Central';
+
+--8)
+SELECT o.order_id, o.customer_name, o.amount, d.district_name FROM Orders o JOIN Vendors v ON o.vendor_id = v.vendor_id JOIN Districts d ON v.district_id = d.district_id WHERE o.amount > 1000 ORDER BY o.amount DESC;
+
+--9)
+SELECT o.order_id, v.vendor_name, o.customer_name, o.amount
+FROM Orders o
+LEFT JOIN Vendors v ON o.vendor_id = v.vendor_id
+ORDER BY o.order_id;
+
+--10)
+SELECT v.vendor_id, v.vendor_name, d.district_name
+FROM Vendors v
+JOIN Districts d ON v.district_id = d.district_id
+WHERE d.region = 'North'
+ORDER BY v.vendor_name;
+
+--subquerry
+--1.1)
+SELECT v.vendor_id, v.vendor_name
+FROM Vendors v
+LEFT JOIN Orders o ON v.vendor_id = o.vendor_id
+WHERE o.order_id IS NULL;
+
+--1.2)
+SELECT vendor_id, vendor_name
+FROM Vendors
+WHERE vendor_id NOT IN (SELECT DISTINCT vendor_id FROM Orders WHERE vendor_id IS NOT NULL);
+
+--2)
+SELECT *
+FROM Orders
+WHERE amount = (SELECT MAX(amount) FROM Orders);
+
+--3)
+SELECT district_name
+FROM Districts
+WHERE district_id IN (
+    SELECT district_id
+    FROM Vendors
+    GROUP BY district_id
+    HAVING COUNT(*) > 1
+);
+
+--4)
+SELECT o.order_id, o.customer_name, o.amount
+FROM Orders o
+WHERE o.amount > (SELECT AVG(amount) FROM Orders);
+
+--5)
+SELECT v.vendor_id, v.vendor_name
+FROM Vendors v
+WHERE EXISTS (
+    SELECT 1
+    FROM Orders o
+    WHERE o.vendor_id = v.vendor_id
+);
+

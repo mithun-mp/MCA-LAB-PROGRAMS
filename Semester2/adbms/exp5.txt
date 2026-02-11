@@ -1,0 +1,89 @@
+-- exp5
+
+--1)
+CREATE VIEW EmpBasicView AS
+SELECT EmpID, EmpName, Salary
+FROM EMPLOYEE;
+
+--test code
+SELECT * FROM EmpBasicView;
+
+--2)
+CREATE VIEW RecentEmployees AS
+SELECT EmpID, EmpName, Salary, HireDate
+FROM EMPLOYEE
+WHERE HireDate > '2020-01-01';
+
+--test code
+SELECT * FROM RecentEmployees;
+
+
+--3)
+CREATE VIEW AnnualSalaryView AS
+SELECT EmpName, (Salary * 12) AS AnnualSalary
+FROM EMPLOYEE;
+
+--test code
+SELECT * FROM AnnualSalaryView;
+
+--4)
+CREATE VIEW EmpDeptView AS
+SELECT e.EmpName, d.DeptName, d.Location
+FROM EMPLOYEE e
+JOIN DEPARTMENT d ON e.DeptID = d.DeptID;
+
+--test code
+SELECT * FROM EmpDeptView;
+
+--5)
+CREATE VIEW EmployeeProjectView AS
+SELECT e.EmpName, p.ProjectName, ep.HoursWorked
+FROM EMPLOYEE e
+JOIN EMP_PROJECT ep ON e.EmpID = ep.EmpID
+JOIN PROJECT p ON ep.ProjectID = p.ProjectID;
+
+--test code
+SELECT * FROM EmployeeProjectView;
+
+--6)
+CREATE VIEW DeptSalaryStats AS
+SELECT d.DeptName,
+       SUM(e.Salary) AS TotalSalary,
+       AVG(e.Salary) AS AvgSalary
+FROM DEPARTMENT d
+LEFT JOIN EMPLOYEE e ON d.DeptID = e.DeptID
+GROUP BY d.DeptName;
+
+--test code
+SELECT * FROM DeptSalaryStats;
+
+--7)
+CREATE VIEW HighSalaryEmp AS
+SELECT EmpName, Salary
+FROM EMPLOYEE
+WHERE Salary > 60000;
+
+-- test code
+SELECT * FROM HighSalaryEmp;
+
+--8)
+CREATE OR REPLACE VIEW HighSalaryEmp AS
+SELECT EmpID, EmpName, DeptID, Salary
+FROM EMPLOYEE
+WHERE Salary > 60000;
+
+--test code
+SELECT * FROM HighSalaryEmp;
+
+--9)
+UPDATE EmpBasicView
+SET Salary = Salary + 5000
+WHERE EmpID = 101;
+
+--test code 
+SELECT * FROM EMPLOYEE WHERE EmpID = 101;
+
+--10)
+DROP VIEW RecentEmployees;
+
+
